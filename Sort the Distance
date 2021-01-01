@@ -1,0 +1,72 @@
+//
+//  main.cpp
+//  1
+//
+//  Created by 王海宇 on 2020/12/24.
+//
+
+#include<iostream>
+#include<algorithm>
+#include<iomanip>
+#include<math.h>
+#include <cmath>
+#include <cstring>
+#include <memory>
+#include <cstdio>
+#include <cstdlib>
+using namespace std;
+struct Node
+{
+    int x;
+    int y;
+    int z;
+}dot[11];
+struct di
+{
+    int dot1;
+    int dot2;
+    double dist;
+}distanc[100];
+int main()
+{
+    int i=0,j=0,k=0;
+    int n=0;
+    int dis[11][11]={0};
+    cin>>n;
+    for(i=0;i<n;i++)
+    {
+        cin>>dot[i].x>>dot[i].y>>dot[i].z;
+    }
+    for(i=0;i<n-1;i++)
+    {
+        for(j=i+1;j<n;j++)
+        {
+            distanc[k].dot1=i;
+            distanc[k].dot2=j;
+            distanc[k].dist=sqrt((dot[i].x-dot[j].x)*(dot[i].x-dot[j].x)+(dot[i].y-dot[j].y)*(dot[i].y-dot[j].y)+(dot[i].z-dot[j].z)*(dot[i].z-dot[j].z));
+            
+        }
+    }
+    di temp;
+    for(i=0;i<n*(n-1)/2-1;i++)
+    {
+        for(j=0;j<n*(n-1)/2-1-i;j++)
+        {
+            if(distanc[j].dist<distanc[j+1].dist)
+            {
+                temp=distanc[j];
+                distanc[j]=distanc[j+1];
+                distanc[j+1]=temp;
+            }
+        }
+    }
+    for(i=0;i<n*(n-1)/2;i++)
+    {
+        cout<<"("<<dot[distanc[i].dot1].x<<","<<dot[distanc[i].dot1].y<<","<<dot[distanc[i].dot1].z<< ")";
+        cout<<"-";
+        cout<<"("<<dot[distanc[i].dot2].x<<","<<dot[distanc[i].dot2].y<<","<<dot[distanc[i].dot2].z<< ")";
+        cout<<"=";
+        cout<<setprecision(2)<<setiosflags(ios::fixed)<<distanc[i].dist<<endl;
+    }
+    return 0;
+}
