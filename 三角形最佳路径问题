@@ -1,0 +1,57 @@
+//
+//  main.cpp
+//  1
+//
+//  Created by 王海宇 on 2020/12/24.
+//
+
+#include<iostream>
+#include<algorithm>
+#include<iomanip>
+#include<math.h>
+#include <cmath>
+#include <cstring>
+#include <memory>
+#include <cstdio>
+#include <cstdlib>
+using namespace std;
+int main()
+{
+    int h=0;
+    int i=0,j=0,k=0,l=0;
+    int dot[101][101]={0};
+    cin>>h;
+    i=1;
+    j=1;
+    for(i=1;i<=h;i++)
+    {
+        for(j=1;j<=i;j++)
+        {
+            cin>>dot[i][j];
+        }
+    }
+    int f[101][101]={0};
+    f[1][1]=dot[1][1];
+    for(i=2;i<=h;i++)
+    {
+        for(j=1;j<=i;j++)
+        {
+            if(j==i)
+            {
+                f[i][j]=dot[i][j]+f[i-1][j-1];
+            }
+            else
+            {
+                f[i][j]=max(f[i-1][j-1],f[i-1][j])+dot[i][j];
+            }
+        }
+    }
+    int ma=INT_MIN;
+    for(i=1;i<=h;i++)
+    {
+        if(ma<f[h][i])
+            ma=f[h][i];
+    }
+    cout<<ma<<endl;
+    return 0;
+}
